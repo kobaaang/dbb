@@ -1,0 +1,87 @@
+	$(function(){
+		//---- GNB 메뉴 마우스 온오버 Sta ----
+		$('.gnb>ul>li').find('a').mouseover(function(){
+			var pageActiveFlag = $(this).parent().attr('class');
+			if (pageActiveFlag.indexOf('on')==-1){
+				$(this).addClass('on');
+			}
+			$('.gnb_sub').show();
+		});
+		$('.gnb>ul>li').find('a').mouseout(function(){
+			var pageActiveFlag = $(this).parent().attr('class');
+			if (pageActiveFlag.indexOf('on')==-1){
+				$(this).removeClass('on');
+			}
+		});
+
+		//$('.gnb_sub_close').click(function(){$('.gnb_sub').hide();});
+		$('.gnb').mouseleave(function(){
+			$('.gnb_sub').hide();
+		});
+		//---- GNB 메뉴 마우스 온오버 End ----
+
+		//---- 네비 마우스 온오버 Sta ----
+		$('.btn_nav_more').find('a').click(function(){
+			$(this).parent().hide();
+			$(this).parent().parent().parent().addClass('on');
+			$(this).parent().parent().parent().find('li').css('background','#f8f8f8');
+			$(this).parent().parent().parent().find('li').show();
+			var thisObjSeq = $(this).parent().parent().parent().parent().index();
+			$('.navi>ul>li:eq('+(thisObjSeq)+')>ul>li[class=on]').css('background','#e3e3e3');
+		});
+		$('.nav_wrap').mouseleave(function(){
+			$(this).find('.btn_nav_more').show();
+			$(this).find('ul').removeClass('on');
+			$(this).find('li').hide();
+			$(this).find('li[class=on]').css('background',"url('/images/common/common_img.png') no-repeat -200px 1px").show();
+			
+			var thisObjSeq = $(this).index();
+		});
+
+		$('.nav_wrap>ul>li>a').mouseover(function(){
+			var navDropActiveFlag = $(this).parent().parent().attr('class'); //네비드랍여부
+			var pageActiveFlag    = $(this).parent().attr('class'); //현재네비페이지여부
+			if (pageActiveFlag.indexOf('on')>-1 && navDropActiveFlag.indexOf('on')==-1){
+			}else{
+				$(this).parent().css('background','#e3e3e3');
+			}
+		});
+		$('.nav_wrap>ul>li>a').mouseout(function(){
+			var isSubNavActiveFlag = $(this).parent().parent().find('li:visible').size();
+			var pageActiveFlag     = $(this).parent().attr('class'); //현재네비페이지여부
+			if (pageActiveFlag.indexOf('on')==-1 && isSubNavActiveFlag>1)
+			{
+				$(this).parent().css('background','#f8f8f8');
+			}
+		});
+		//---- 네비 마우스 온오버 Sta ----
+
+		
+		//---- 동부그룹계열사 온오버 Sta ----
+		$('.subsidiary a').click(function(){$('.subsidiary_cont').show();});
+		$('.subsidiary_cont_close').click(function(){$('.subsidiary_cont').hide();});
+		//---- 동부그룹계열사 온오버 End ----
+
+
+		//---- 셀렉트 박스 Sta ----
+		$("#country_id").selectbox(); // 공고, 공지사항, 보도자료 등
+
+		$('.selectbox').SumoSelect(); // 연락처
+		$('.selectbox2').SumoSelect2(); // 이메일
+		$('.selectbox3').SumoSelect3(); // 분야
+		//---- 셀렉트 박스 End ----
+	});
+
+	//---- 탭 메뉴 변경 Sta ----
+		function fnTab(objNo){
+			var maxNo = $(".tab_list").length;
+				for (i=1;i<=maxNo;i++ ){
+				if(objNo != i){
+					$(".year_"+i).removeClass('on');
+					$(".tab_cont_"+i).hide();
+					}
+				}	
+					$(".year_"+objNo).addClass('on');
+					$(".tab_cont_"+objNo).show();
+			}
+	//---- 탭 메뉴 변경 End ----
